@@ -99,18 +99,11 @@ void determine_min_conv(std::vector<std::vector<int>>& s_ref, std::vector<int> t
 
     for(int i = min_index; i <= max_index; ++i) {
         bool index_not_used = true;
-        if(size_vector > 0) {
-            for(int j = 0; j < size_vector; ++j) {
-                index_not_used = index_not_used && track_indices[j] != i;
-            }
+        for(int j = 0; j < size_vector; ++j) {
+            index_not_used = index_not_used && track_indices[j] != i;
         }
-        else { index_not_used = true; }
         if(index_not_used) {
-            std::vector<int> tracker;
-            int size_track = track_indices.size();
-            for(int it2 = 0; it2 < size_track; ++it2) {
-                tracker.push_back(track_indices[it2]);
-            }
+            std::vector<int> tracker = track_indices;
             tracker.push_back(i);
             int n2 = n + 1;
 

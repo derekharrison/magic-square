@@ -86,56 +86,56 @@ int cost_conversion(std::vector<std::vector<int>> s_ref, int** s) {
 
 void determine_min_conv(std::vector<std::vector<int>>& s_ref, std::vector<int> track_indices, int& min_cost_conv, int n) {
 
-	int size_vector = track_indices.size();
-	int min_index = 1;
-	int max_index = 9;
-	int nx = 3;
-	int ny = 3;
+    int size_vector = track_indices.size();
+    int min_index = 1;
+    int max_index = 9;
+    int nx = 3;
+    int ny = 3;
 
     int** s = new int*[nx];
     for(int i = 0; i < nx; ++i) {
         s[i] = new int[ny];
     }
 
-	for(int i = min_index; i <= max_index; ++i) {
-		bool index_not_used = true;
-		if(size_vector > 0) {
-			for(int j = 0; j < size_vector; ++j) {
-				index_not_used = index_not_used && track_indices[j] != i;
-			}
-		}
-		else { index_not_used = true; }
-		if(index_not_used) {
-			std::vector<int> tracker;
-			int size_track = track_indices.size();
-			for(int it2 = 0; it2 < size_track; ++it2) {
-				tracker.push_back(track_indices[it2]);
-			}
-			tracker.push_back(i);
-			int n2 = n + 1;
+    for(int i = min_index; i <= max_index; ++i) {
+        bool index_not_used = true;
+        if(size_vector > 0) {
+            for(int j = 0; j < size_vector; ++j) {
+                index_not_used = index_not_used && track_indices[j] != i;
+            }
+        }
+        else { index_not_used = true; }
+        if(index_not_used) {
+            std::vector<int> tracker;
+            int size_track = track_indices.size();
+            for(int it2 = 0; it2 < size_track; ++it2) {
+                tracker.push_back(track_indices[it2]);
+            }
+            tracker.push_back(i);
+            int n2 = n + 1;
 
-			if(n == 8) {
-				for(int it = 0; it < 9; ++it) {
-					int nn = it;
-					int i_index = nn - (nn / nx) * nx;
-					int j_index = nn / nx;
-					s[i_index][j_index] = tracker[it];
-				}
+            if(n == 8) {
+                for(int it = 0; it < 9; ++it) {
+                    int nn = it;
+                    int i_index = nn - (nn / nx) * nx;
+                    int j_index = nn / nx;
+                    s[i_index][j_index] = tracker[it];
+                }
 
-				bool is_magic_square = is_square_magic(s);
-				int cost_of_conversion = cost_conversion(s_ref, s);
-				if(is_magic_square) {
-					if(cost_of_conversion < min_cost_conv) {
-						min_cost_conv = cost_of_conversion;
-					}
-				}
+                bool is_magic_square = is_square_magic(s);
+                int cost_of_conversion = cost_conversion(s_ref, s);
+                if(is_magic_square) {
+                    if(cost_of_conversion < min_cost_conv) {
+                        min_cost_conv = cost_of_conversion;
+                    }
+                }
 
-			}
-			else {
-				determine_min_conv(s_ref, tracker, min_cost_conv, n2);
-			}
-		}
-	}
+            }
+            else {
+                determine_min_conv(s_ref, tracker, min_cost_conv, n2);
+            }
+        }
+    }
 }
 
 int forming_magic_square(std::vector<std::vector<int>> s) {

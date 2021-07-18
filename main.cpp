@@ -117,10 +117,8 @@ void determine_min_conv(std::vector<std::vector<int>>& s_ref, std::vector<int> t
 
                 bool is_magic_square = is_square_magic(s);
                 int cost_of_conversion = cost_conversion(s_ref, s);
-                if(is_magic_square) {
-                    if(cost_of_conversion < min_cost_conv) {
-                        min_cost_conv = cost_of_conversion;
-                    }
+                if(is_magic_square && cost_of_conversion < min_cost_conv) {
+                    min_cost_conv = cost_of_conversion;
                 }
 
             }
